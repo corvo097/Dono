@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Kitty - Sistema de Mensagens</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #ff69b4;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff1493;
+        }
+        .kitty-image {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        .message-box {
+            background-color: #fff0f5;
+            border: 2px solid #ff1493;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff1493;
+        }
+        button {
+            background-color: #ff1493;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #ff69b4;
+        }
+    </style>
+</head>
+<body>
+    <h1>☆ Sistema de Mensagens Hello Kitty! ☆</h1>
+    <img src="https://static.wikia.nocookie.net/sanrio/images/1/10/Hello-kitty.png/revision/latest?cb=20171105235741" alt="Hello Kitty" class="kitty-image">
+    <div class="message-box">
+        <p><b>Escolha uma opção de mensagem para enviar (com muito carinho!):</b></p>
+        <button onclick="sendMessage(1)">💌 Conversar com o namorado da Natália 💌</button>
+        <button onclick="sendMessage(2)">💬 Negociação 💬</button>
+        <button onclick="sendMessage(3)">✅ Confirmação de algo ✅</button>
+        <button onclick="sendMessage(4)">🔓 Permissão 🔓</button>
+        <button onclick="sendMessage(5)">👯‍♀️ Amizades 👯‍♀️</button>
+    </div>
+
+    <script>
+        function sendMessage(option) {
+            let number = "+5527996136038";
+            let message;
+
+            switch(option) {
+                case 1:
+                    message = "Olá!%20Gostaria%20de%20conversar%20com%20o%20namorado%20da%20Natália.%20Como%20está%20você?%20💕";
+                    break;
+                case 2:
+                    message = "Olá!%20Gostaria%20de%20negociar%20algo%20com%20você.%20Podemos%20conversar?%20💖";
+                    break;
+                case 3:
+                    message = "Olá!%20Gostaria%20de%20confirmar%20algo%20com%20você.%20Pode%20me%20ajudar?%20✨";
+                    break;
+                case 4:
+                    message = "Olá!%20Preciso%20de%20sua%20permissão%20para%20algo.%20Você%20pode%20me%20confirmar?%20🔐";
+                    break;
+                case 5:
+                    message = "Olá!%20Gostaria%20de%20falar%20sobre%20amizades.%20Podemos%20conversar?%20🌸";
+                    break;
+                default:
+                    alert("Opção inválida. Por favor, tente novamente!");
+                    return;
+            }
+
+            let url = `https://wa.me/${number}?text=${message}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
+,
