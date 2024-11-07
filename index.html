@@ -142,7 +142,7 @@
     <div id="finalMessage" class="warning"></div>
 
     <!-- Exibição do GIF -->
-    <div>
+    <div id="gifContainer" style="visibility: hidden;">
         <img src="https://i.ibb.co/wsKyhbK/11b5e23a03cc48984b86574ac79aed2ad5040476-gifv-2.gif" alt="Gif Animado">
     </div>
 
@@ -166,10 +166,9 @@
 
         function handleDistance(answer) {
             // Aplica o efeito de glitch
-            document.body.style.animation = 'glitch 1s infinite';
-            setTimeout(function() {
-                document.body.style.animation = 'none'; // Remove o efeito de glitch depois de um tempo
-            }, 2000);
+            let finalMessage = document.getElementById('finalMessage');
+            finalMessage.style.visibility = 'visible';
+            finalMessage.style.color = "#ff0000"; // Definir cor de texto para o glitch
 
             // Esconde as opções de resposta
             document.getElementById('distanceQuestion').style.visibility = 'hidden';
@@ -177,13 +176,14 @@
             document.getElementById('noBtn').style.visibility = 'hidden';
             document.getElementById('aBitBtn').style.visibility = 'hidden';
 
-            let finalMessage = document.getElementById('finalMessage');
-            
+            // Apresenta as mensagens finais com efeitos de glitch
             if (answer === 'sim') {
                 finalMessage.innerHTML = '<div class="glitch" data-text="AFASTE-SE">AFASTE-SE</div>';
+                document.getElementById('gifContainer').style.visibility = 'visible'; // Exibe o gif
                 setTimeout(function() {
                     finalMessage.style.visibility = 'hidden';
-                }, 3000);
+                    document.getElementById('gifContainer').style.visibility = 'hidden'; // Esconde o gif depois
+                }, 5000);
             } else if (answer === 'não') {
                 finalMessage.innerHTML = '<div class="green-glow">✅</div>';
                 setTimeout(function() {
@@ -201,4 +201,3 @@
 
 </body>
 </html>
-
