@@ -12,7 +12,6 @@
             color: #ff69b4;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
         }
 
         h1 {
@@ -29,6 +28,18 @@
             50% {
                 text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
             }
+        }
+
+        /* Imagem da Hello Kitty com animação de entrada */
+        .kitty-image {
+            width: 200px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         /* Caixa de mensagem com borda brilhante */
@@ -68,136 +79,81 @@
             box-shadow: none;
         }
 
-        /* Estilo do aviso em vermelho */
-        .warning {
-            color: #ff0000;
-            font-size: 2em;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-            visibility: hidden;
+        /* Estilo para esconder as opções iniciais até a seleção */
+        #questions, #finalMessage {
+            display: none;
         }
-
-        .glitch {
-            position: relative;
-            display: inline-block;
-            color: #ff0000;
-            font-size: 2em;
-        }
-
-        .glitch:after {
-            content: attr(data-text);
-            position: absolute;
-            left: 2px;
-            top: 0;
-            color: #ff1493;
-            z-index: -1;
-            animation: glitch 1s infinite;
-        }
-
-        @keyframes glitch {
-            0% { left: 2px; top: 0; }
-            20% { left: -2px; top: 2px; }
-            40% { left: 2px; top: 0; }
-            60% { left: -2px; top: -2px; }
-            80% { left: 2px; top: 0; }
-            100% { left: 2px; top: 0; }
-        }
-
-        /* Estilo de animação de "brilho" */
-        .green-glow {
-            animation: greenGlow 1s ease-in-out;
-        }
-
-        @keyframes greenGlow {
-            0% {
-                box-shadow: 0 0 5px 5px rgba(0, 255, 0, 0.5);
-                background-color: #0d0d0d;
-            }
-            100% {
-                box-shadow: 0 0 15px 15px rgba(0, 255, 0, 1);
-                background-color: #0d0d0d;
-            }
-        }
-
     </style>
 </head>
 <body>
-
     <h1>☆ Namorado da Natália ☆</h1>
+    <img src="https://static.wikia.nocookie.net/sanrio/images/1/10/Hello-kitty.png/revision/latest?cb=20171105235741" alt="Hello Kitty" class="kitty-image">
     
-    <div class="message-box">
-        <p><b class="warning" id="question1">Você é homem ou mulher?</b></p>
-        <button id="manBtn" style="visibility: hidden;" onclick="askDistance('homem')">Homem</button>
-        <button id="womanBtn" style="visibility: hidden;" onclick="askDistance('mulher')">Mulher</button>
+    <div id="genderSelection" class="message-box">
+        <p><b>Escolha seu gênero:</b></p>
+        <button onclick="chooseGender('homem')">Homem</button>
+        <button onclick="chooseGender('mulher')">Mulher</button>
     </div>
 
-    <div class="message-box">
-        <p><b id="distanceQuestion" class="warning" style="visibility: hidden;">Você está muito perto?</b></p>
-        <button id="yesBtn" style="visibility: hidden;" onclick="handleDistance('sim')">Sim</button>
-        <button id="noBtn" style="visibility: hidden;" onclick="handleDistance('não')">Não</button>
-        <button id="aBitBtn" style="visibility: hidden;" onclick="handleDistance('um pouco')">Um pouco</button>
+    <div id="questions" class="message-box">
+        <p><b>Você está muito perto?</b></p>
+        <button onclick="goToSite('sim')">Sim</button>
+        <button onclick="goToSite('nao')">Não</button>
+        <button onclick="goToSite('pouco')">Um pouco</button>
     </div>
 
-    <div id="finalMessage" class="warning"></div>
-
-    <!-- Exibição do GIF -->
-    <div id="gifContainer" style="visibility: hidden;">
-        <img src="https://i.ibb.co/wsKyhbK/11b5e23a03cc48984b86574ac79aed2ad5040476-gifv-2.gif" alt="Gif Animado">
+    <div id="finalMessage" class="message-box">
+        <p id="messageText"></p>
     </div>
 
     <script>
-        window.onload = function() {
-            document.getElementById('question1').style.visibility = 'visible';
-            document.getElementById('manBtn').style.visibility = 'visible';
-            document.getElementById('womanBtn').style.visibility = 'visible';
+        let selectedGender = "";
+
+        function chooseGender(gender) {
+            selectedGender = gender;
+            document.getElementById("genderSelection").style.display = "none";
+            
+            if (selectedGender === "mulher") {
+                goToSite();
+            } else {
+                document.getElementById("questions").style.display = "block";
+            }
         }
 
-        function askDistance(gender) {
-            document.getElementById('question1').style.visibility = 'hidden';
-            document.getElementById('manBtn').style.visibility = 'hidden';
-            document.getElementById('womanBtn').style.visibility = 'hidden';
+        function goToSite(response = "") {
+            if (selectedGender === "mulher") {
+                window.location.href = "https://seusite.com/mulher"; // Aqui você coloca o link para o site da mulher
+            } else {
+                let messageText = "";
+                let redirectURL = "";
 
-            document.getElementById('distanceQuestion').style.visibility = 'visible';
-            document.getElementById('yesBtn').style.visibility = 'visible';
-            document.getElementById('noBtn').style.visibility = 'visible';
-            document.getElementById('aBitBtn').style.visibility = 'visible';
-        }
+                switch(response) {
+                    case "sim":
+                        messageText = "AFASTE-SE! 💖";
+                        redirectURL = "https://wa.me/+5527996136038?text=Olá!%20Gostaria%20de%20conversar%20com%20o%20namorado%20da%20Natália.%20Como%20está%20você?%20💕";
+                        break;
+                    case "nao":
+                        messageText = "✅ Confirmação de algo ✅";
+                        redirectURL = "https://wa.me/+5527996136038?text=Olá!%20Gostaria%20de%20confirmar%20algo%20com%20você.%20Pode%20me%20ajudar?%20✨";
+                        break;
+                    case "pouco":
+                        messageText = "🔓 Permissão 🔓";
+                        redirectURL = "https://wa.me/+5527996136038?text=Olá!%20Preciso%20de%20sua%20permissão%20para%20algo.%20Você%20pode%20me%20confirmar?%20🔐";
+                        break;
+                    default:
+                        messageText = "Opção inválida. Tente novamente!";
+                        redirectURL = "#";
+                        break;
+                }
 
-        function handleDistance(answer) {
-            // Aplica o efeito de glitch
-            let finalMessage = document.getElementById('finalMessage');
-            finalMessage.style.visibility = 'visible';
-            finalMessage.style.color = "#ff0000"; // Definir cor de texto para o glitch
-
-            // Esconde as opções de resposta
-            document.getElementById('distanceQuestion').style.visibility = 'hidden';
-            document.getElementById('yesBtn').style.visibility = 'hidden';
-            document.getElementById('noBtn').style.visibility = 'hidden';
-            document.getElementById('aBitBtn').style.visibility = 'hidden';
-
-            // Apresenta as mensagens finais com efeitos de glitch
-            if (answer === 'sim') {
-                finalMessage.innerHTML = '<div class="glitch" data-text="AFASTE-SE">AFASTE-SE</div>';
-                document.getElementById('gifContainer').style.visibility = 'visible'; // Exibe o gif
-                setTimeout(function() {
-                    finalMessage.style.visibility = 'hidden';
-                    document.getElementById('gifContainer').style.visibility = 'hidden'; // Esconde o gif depois
-                }, 5000);
-            } else if (answer === 'não') {
-                finalMessage.innerHTML = '<div class="green-glow">✅</div>';
-                setTimeout(function() {
-                    finalMessage.style.visibility = 'hidden';
-                    document.body.style.backgroundColor = '#0d0d0d';
-                }, 2000);
-            } else if (answer === 'um pouco') {
-                finalMessage.innerHTML = '<div class="glitch" data-text="MANTENHA A DISTÂNCIA">MANTENHA A DISTÂNCIA</div>';
-                setTimeout(function() {
-                    finalMessage.style.visibility = 'hidden';
-                }, 3000);
+                document.getElementById("questions").style.display = "none";
+                document.getElementById("finalMessage").style.display = "block";
+                document.getElementById("messageText").innerHTML = messageText;
+                setTimeout(() => {
+                    window.location.href = redirectURL;
+                }, 2000); // Redireciona após 2 segundos
             }
         }
     </script>
-
 </body>
 </html>
