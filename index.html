@@ -3,48 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Kitty - Sistema de Mensagens</title>
+    <title>Namorado da Natália</title>
     <style>
+        /* Estilo do fundo e fonte */
         body {
-            background-color: #f0f8ff;
+            background-color: #0d0d0d;
             font-family: Arial, sans-serif;
-            text-align: center;
             color: #ff69b4;
+            text-align: center;
             padding: 20px;
         }
+
         h1 {
-            color: #ff1493;
+            color: #ff69b4;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+            animation: pulse 1.5s infinite;
         }
+
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+            }
+        }
+
+        /* Imagem da Hello Kitty com animação de entrada */
         .kitty-image {
             width: 200px;
             margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Caixa de mensagem com borda brilhante */
         .message-box {
-            background-color: #fff0f5;
-            border: 2px solid #ff1493;
+            background-color: #1a1a1a;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
             font-size: 18px;
-            color: #ff1493;
+            color: #ff69b4;
+            box-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+            margin-top: 20px;
         }
+
+        /* Estilo dos botões */
         button {
             background-color: #ff1493;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             margin: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
+        /* Animação dos botões ao passar o mouse e ao clicar */
         button:hover {
             background-color: #ff69b4;
+            box-shadow: 0 0 10px #ff69b4;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
-    <h1>☆ Sistema de Mensagens Hello Kitty! ☆</h1>
+    <h1>☆ Namorado da Natália ☆</h1>
     <img src="https://static.wikia.nocookie.net/sanrio/images/1/10/Hello-kitty.png/revision/latest?cb=20171105235741" alt="Hello Kitty" class="kitty-image">
+    
     <div class="message-box">
         <p><b>Escolha uma opção de mensagem para enviar (com muito carinho!):</b></p>
         <button onclick="sendMessage(1)">💌 Conversar com o namorado da Natália 💌</button>
@@ -86,6 +125,4 @@
     </script>
 </body>
 </html>
-,
-
 
